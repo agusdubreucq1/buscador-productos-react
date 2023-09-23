@@ -1,0 +1,7 @@
+nav {
+  width: 100%;
+  background-color: #afa;
+  height: 100px;
+  position: sticky;
+  z-index: 1000;
+}

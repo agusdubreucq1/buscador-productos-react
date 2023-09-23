@@ -2,6 +2,7 @@
   --colorFondo: #e7e7e7;
 }
 
+
 .formBusqueda {
   display: flex;
   padding: 5px;
@@ -24,4 +25,21 @@
   background-color: var(--colorFondo);
   padding: 10px;
   min-height: 100vh;
+}
+
+.loading{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+    font-size: 20px;
+}
+
+.label-minPrice{
+    display: flex;
+    align-items: center;
+}
+
+input[type="range"]{
+    width: 200px;
 }

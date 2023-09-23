@@ -8,15 +8,16 @@ const TIME_WRITE=300;
 
 export function Index() {
   const [search, setSearch] = useState("");
-  const { getAllProducts, products } = useProducts();
+  const [minPrice, setMinPrice]= useState(0);
+  const { getAllProducts, products, loading } = useProducts();
 
   useEffect(() => {
-    getAllProducts({ search: search });
+    getAllProducts({ search: search, minPrice: minPrice });
   }, []);
 
   const debounceGetProducts = useCallback(
-    debounce((search) => {
-      getAllProducts({ search });
+    debounce((search, minPrice) => {
+      getAllProducts({ search, minPrice });
     }, TIME_WRITE),
     []
   );
@@ -24,7 +25,7 @@ export function Index() {
   const handlerChange = (e) => {
     const newSearch = e.target.value;
     setSearch(newSearch);
-    debounceGetProducts(newSearch);
+    debounceGetProducts(newSearch, minPrice);
     // si hacia getAllProducts({search: search}),
     // al custumhook le llega el valor anterior xq el
     //seteo es ASINCRONO
@@ -38,6 +39,12 @@ export function Index() {
     setSearch(newSearch);
   };
 
+  const handlerChangeMinPrice = (e)=>{
+    const value = e.target.value;
+    setMinPrice(value);
+    debounceGetProducts(search,value)
+  }
+
   return (
     <>
       <section>
@@ -48,9 +55,11 @@ export function Index() {
             onChange={handlerChange}
             value={search}
           ></input>
+          <input max={500} type='range' name='minPrice' value={minPrice} onChange={handlerChangeMinPrice}></input>
+          <label className="label-minPrice">min price: {minPrice}</label>
           <button type="submit">BUSCAR</button>
         </form>
-        <div className="container-products">
+        {loading ? <div className="loading"><p>cargando...</p></div> : <div className="container-products">
           {products.map((product) => {
             return (
               <Product
@@ -61,7 +70,7 @@ export function Index() {
               ></Product>
             );
           })}
-        </div>
+        </div>}
       </section>
     </>
   );

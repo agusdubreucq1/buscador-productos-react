@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 
 const api = `https://fakestoreapi.com/products`;
 
-export function useProducts({ search }) {
+export function useProducts() {
   const [products, setProducts] = useState([]);
 
   //   useEffect(()=>{
   //     getAllProducts()
   //   }, [search])
 
-  const getAllProducts = () => {
+  const getAllProducts = ({search}) => {
+    console.log(search)
     fetch(api)
       .then((res) => res.json())
       .then((json) => {
@@ -17,7 +18,7 @@ export function useProducts({ search }) {
           product.title.toUpperCase().startsWith(search.toUpperCase())
         );
         setProducts(jsonSearch);
-      });
+      })
   };
 
   return { getAllProducts, products };

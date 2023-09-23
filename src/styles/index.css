@@ -1,0 +1,27 @@
+:root {
+  --colorFondo: #e7e7e7;
+}
+
+.formBusqueda {
+  display: flex;
+  padding: 5px;
+  justify-content: center;
+  gap: 8px;
+}
+
+.formBusqueda input {
+  height: 50px;
+  width: 300px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.container-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 250px);
+  gap: 15px;
+  justify-content: center;
+  background-color: var(--colorFondo);
+  padding: 10px;
+  min-height: 100vh;
+}
